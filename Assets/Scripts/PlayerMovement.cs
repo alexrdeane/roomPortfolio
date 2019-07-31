@@ -12,10 +12,11 @@ namespace AI
         #region Variables
         [Header("Variables: ")]
         //player's movement speed
-        public float movementSpeed = 20f;
-        public float sphereCollide = 4.5f;
+        public float movementSpeed = 5f;
+        public float movementThreshold;
         //player's private rigidbody
         private Rigidbody rigid;
+        public Joystick joystick;
         #endregion
 
         #region Start
@@ -29,22 +30,27 @@ namespace AI
         #region Update
         void Update()
         {
-            //META only refrenced in update because it is only needed in update (doesnt need to be constantly checked)
-            //get input axis as float for x and y
-            float inputX = Input.GetAxis("Horizontal");
-            float inputZ = Input.GetAxis("Vertical");
-            //create input vector
-            Vector3 input = new Vector3(inputX, 0, inputZ);
-            //apply velocity
-            rigid.velocity = input * movementSpeed;
-
+            Move();
         }
         #endregion
 
-        private void OnDrawGizmos()
+        void Move()
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, sphereCollide);
+            Vector2 input = new Vector2(joystick.Horizontal, joystick.Vertical);
+            if (input.x * input.x + input.y * input.y < movementThreshold * movementThreshold)
+            {
+                input = input.normalized * 0.001f;
+            }
+            else
+            {
+                input = input.normalized;
+            }
+
+            rigid.velocity = new Vector3(input.x, 0f, input.y) * movementSpeed;
+            if (input != Vector2.zero)
+            {
+                transform.forward = rigid.velocity;
+            }
         }
     }
 }
