@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8716068648875843916}
   m_Layer: 0
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,9 +105,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30fcfdaa3c2ce8843b02a49f9b90188b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swordReflect:
-    serializedVersion: 2
-    m_Bits: 0
   speed: 5
 --- !u!54 &8716068648875843916
 Rigidbody:

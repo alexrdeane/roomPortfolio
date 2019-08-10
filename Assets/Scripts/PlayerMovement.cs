@@ -17,6 +17,7 @@ namespace AI
         //player's private rigidbody
         private Rigidbody rigid;
         public Joystick joystick;
+        public Animator anim;
         #endregion
 
         #region Start
@@ -39,10 +40,12 @@ namespace AI
             Vector2 input = new Vector2(joystick.Horizontal, joystick.Vertical);
             if (input.x * input.x + input.y * input.y < movementThreshold * movementThreshold)
             {
+                anim.SetBool("isWalking", false);
                 input = input.normalized * 0.001f;
             }
             else
             {
+                anim.SetBool("isWalking", true);
                 input = input.normalized;
             }
 
