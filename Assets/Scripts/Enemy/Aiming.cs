@@ -8,6 +8,7 @@ public class Aiming : MonoBehaviour
     public float attackRate = 1f;
     public float attackRange = 2f;
     protected Player currentPlayer;
+    public Collider aimZone;
 
     private float attackTimer = 0f;
 
@@ -19,7 +20,7 @@ public class Aiming : MonoBehaviour
         // Draw the attack sphere around
         Gizmos.color = Color.green;
         // Cube Range - Change Detect Enemies too
-        Gizmos.DrawWireCube(transform.position + transform.forward, new Vector3(attackRange, 1, 2.5f));
+        Gizmos.DrawWireCube(transform.position + transform.forward, new Vector3(attackRange, 10, 20.5f));
         // Circle Range
         //Gizmos.DrawWireSphere(transform.position, attackRange);
     }
@@ -37,22 +38,25 @@ public class Aiming : MonoBehaviour
 
     void DetectEnemies()
     {
-        // Reset current enemy
-        currentPlayer = null;
-        // Perform OverlapSphere and get the hits
-        // Cube Range - Change OnDrawGizmosSelected too
-        Collider[] hits = Physics.OverlapBox(transform.position + transform.forward, new Vector3(attackRange, 1, 2.5f));
-        // Circle Range
-        //Collider[] hits = Physics.OverlapSphere(transform.position, attackRange);
-        // Loop through everything we hit
-        foreach (var hit in hits)
+        if (CameraController.playerInRoom == false)
         {
-            // If the thing we hit is an enemy
-            Player player = hit.GetComponent<Player>();
-            if (player)
+            // Reset current enemy
+            currentPlayer = null;
+            // Perform OverlapSphere and get the hits
+            // Cube Range - Change OnDrawGizmosSelected too
+            Collider[] hits = Physics.OverlapBox(transform.position + transform.forward, new Vector3(attackRange, 10, 20.5f));
+            // Circle Range
+            //Collider[] hits = Physics.OverlapSphere(transform.position, attackRange);
+            // Loop through everything we hit
+            foreach (var hit in hits)
             {
-                // Set current enemy to that one
-                currentPlayer = player;
+                // If the thing we hit is an enemy
+                Player player = hit.GetComponent<Player>();
+                if (player)
+                {
+                    // Set current enemy to that one
+                    currentPlayer = player;
+                }
             }
         }
     }

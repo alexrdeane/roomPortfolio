@@ -6,6 +6,8 @@ TagManager:
   tags:
   - bullet
   - enemy
+  - Enemy
+  - melee
   layers:
   - Default
   - TransparentFX

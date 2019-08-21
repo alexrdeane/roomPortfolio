@@ -32,6 +32,7 @@ public class DeflectionMechanic : MonoBehaviour
             //Instantiate(clone, spawnPoint);
 
             Destroy(activeBullet);
+            Bullet.bulletDeflected = true;
         }
 
         bulletIn = false;

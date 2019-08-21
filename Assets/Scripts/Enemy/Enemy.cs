@@ -60,14 +60,14 @@ public class Enemy : Aiming
         }
     }
 
-    //void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.transform.tag == "Player")
-    //    {
-    //        collision.transform.gameObject.GetComponent<Player>().health -= damage;
-    //        //p.TakeDamage(damage);
-    //    }
-    //}
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.tag == "Player")
+        {
+            collision.transform.gameObject.GetComponent<Player>().health -= damage;
+            //p.TakeDamage(damage);
+        }
+    }
 
     public override void Aim(Player p)
     {

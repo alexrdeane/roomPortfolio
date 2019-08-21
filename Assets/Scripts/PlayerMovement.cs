@@ -18,6 +18,8 @@ namespace AI
         private Rigidbody rigid;
         public Joystick joystick;
         public Animator anim;
+        public GameObject swordWoosh;
+        public float whooshTimer = 0f, whooshTimerMax = 0.75f;
         #endregion
 
         #region Start
@@ -31,6 +33,7 @@ namespace AI
         #region Update
         void Update()
         {
+            whooshTimer += Time.deltaTime;
             Move();
         }
         #endregion
@@ -53,6 +56,16 @@ namespace AI
             if (input != Vector2.zero)
             {
                 transform.forward = rigid.velocity;
+                swordWoosh.SetActive(false);
+            }
+        }
+
+        public void OnTriggerStay(Collider other)
+        {
+            if (other.CompareTag("melee"))
+            {
+                anim.Play("attack");
+                swordWoosh.SetActive(false);
             }
         }
     }
