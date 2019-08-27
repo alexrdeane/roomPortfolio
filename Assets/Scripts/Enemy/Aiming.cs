@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Aiming : MonoBehaviour
 {
-    public int damage = 10;
     public float attackRate = 1f;
     public float attackRange = 2f;
     protected Player currentPlayer;
@@ -68,6 +67,7 @@ public class Aiming : MonoBehaviour
         DetectEnemies();
         // Count up the timer
         attackTimer += Time.deltaTime;
+        Enemy.damageTimer += Time.deltaTime;
         // if there's an enemy
         if (currentPlayer)
         {

@@ -6,9 +6,10 @@ public class Player : MonoBehaviour
 {
     public int maxHealth = 100;
     public int health = 100;
-    public int damage = 30;
+    public int damage = 20;
     public float damageTimer = 0f;
     public float damageTimerMax = 0.85f;
+    
 
     public void Start()
     {
@@ -27,19 +28,6 @@ public class Player : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject);
-        }
-    }
-
-    void OnTriggerStay(Collider collision)
-    {
-        Player damages = collision.GetComponentInChildren<Player>();
-        if (collision.CompareTag("Enemy"))
-        {
-            if (damageTimer >= damageTimerMax)
-            {
-                TakeDamage(damage);
-                damageTimer = 0;
-            }
         }
     }
 }

@@ -10,15 +10,12 @@ public class Enemy : Aiming
     public Transform orb;
     public float curHealth = 100;
     public GameObject projectilePrefab;
-    public int damage = 30;
+    public int damage = 20;
     public ParticleSystem particlesSystem;
     public bool includeChildren = true;
 
-    // Health Slider
-    //public Slider healthBar;
-    //public Canvas myCanvas;
     public Material enemyMaterialAim;
-    public float damageTimer = 0f;
+    public static float damageTimer = 0f;
     public float damageTimerMax = 0.85f;
 
     ParticleSystem system
@@ -32,45 +29,18 @@ public class Enemy : Aiming
     }
 
     public void Start()
-
     {
-        // Get Slider
-        //myCanvas = transform.Find("Canvas").GetComponent<Canvas>();
-        //healthBar = myCanvas.transform.Find("Slider").GetComponent<Slider>();
         curHealth = 100;
-        //healthBar.value = Mathf.Clamp01(curHealth / 100);
-
         system.Stop(includeChildren, ParticleSystemStopBehavior.StopEmitting);
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(orb.position, orb.position + orb.forward * 1000f);
     }
 
     public void TakeDamage(int damage)
     {
-        curHealth -= damage;
-        //healthBar.value = Mathf.Clamp01(curHealth / 100);
-
+        curHealth -= 20;
         system.Play(includeChildren);
-
         if (curHealth <= 0)
         {
             Destroy(gameObject);
-        }
-    }
-
-    void OnCollisionStay(Collision collision)
-    {
-        if (collision.transform.tag == "Player")
-        {
-            if (damageTimer >= damageTimerMax)
-            {
-                TakeDamage(damage);
-                damageTimer = 0;
-            }
         }
     }
 
@@ -89,7 +59,19 @@ public class Enemy : Aiming
         // Get Rigidbody from projectile
         Bullet bullet = projectile.GetComponent<Bullet>();
         bullet.Fire(orb.forward);
-
         projectile.transform.position = orb.position;
+    }
+
+    void OnTriggerStay(Collider collision)
+    {
+        Enemy enemy = gameObject.GetComponent<Enemy>();
+        if (collision.CompareTag("Player"))
+        {
+            if (damageTimer >= damageTimerMax)
+            {
+                enemy.TakeDamage(damage);
+                damageTimer = 0;
+            }
+        }
     }
 }
