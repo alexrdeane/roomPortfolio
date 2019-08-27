@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour
 {
     public float speed = 10f; // Travel speed of projectile
     private Rigidbody rigid; // Reference to rigidbody
-    private int damage = 10;
+    private int damage = 20;
     public GameObject bullet;
     public static bool bulletDeflected = false;
 
@@ -15,6 +15,7 @@ public class Bullet : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody>();
         bulletDeflected = false;
+
     }
     void Update()
     {
@@ -30,15 +31,12 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        /*
-        if (collision.transform.tag == "Player")
+        if (collision.CompareTag("PlayerHurt"))
         {
-            if (deflection.bulletIn == true)
-            {
-                damages.TakeDamage(damage);
-            }
+            Player player = collision.transform.GetComponentInParent<Player>();
+            player.TakeDamage(damage);
+            Destroy(gameObject, 0.05f);
         }
-        */
 
         if (collision.CompareTag("Enemy"))
         {

@@ -10,7 +10,7 @@ public class Enemy : Aiming
     public Transform orb;
     public float curHealth = 100;
     public GameObject projectilePrefab;
-
+    public int damage = 30;
     public ParticleSystem particlesSystem;
     public bool includeChildren = true;
 
@@ -18,6 +18,8 @@ public class Enemy : Aiming
     //public Slider healthBar;
     //public Canvas myCanvas;
     public Material enemyMaterialAim;
+    public float damageTimer = 0f;
+    public float damageTimerMax = 0.85f;
 
     ParticleSystem system
     {
@@ -60,12 +62,15 @@ public class Enemy : Aiming
         }
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionStay(Collision collision)
     {
         if (collision.transform.tag == "Player")
         {
-            collision.transform.gameObject.GetComponent<Player>().health -= damage;
-            //p.TakeDamage(damage);
+            if (damageTimer >= damageTimerMax)
+            {
+                TakeDamage(damage);
+                damageTimer = 0;
+            }
         }
     }
 

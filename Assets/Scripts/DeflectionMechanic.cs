@@ -8,7 +8,7 @@ public class DeflectionMechanic : MonoBehaviour
     public Collider col;
     public GameObject bullet;
     public GameObject clone;
-    public bool bulletIn;
+    public static bool bulletIn;
     public Transform spawnPoint;
     public GameObject activeBullet;
     public Animator anim;

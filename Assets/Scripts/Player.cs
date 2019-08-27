@@ -32,12 +32,12 @@ public class Player : MonoBehaviour
 
     void OnTriggerStay(Collider collision)
     {
-        Enemy damages = collision.GetComponentInChildren<Enemy>();
-        if (collision.transform.tag == "Enemy")
+        Player damages = collision.GetComponentInChildren<Player>();
+        if (collision.CompareTag("Enemy"))
         {
             if (damageTimer >= damageTimerMax)
             {
-                damages.TakeDamage(damage);
+                TakeDamage(damage);
                 damageTimer = 0;
             }
         }
