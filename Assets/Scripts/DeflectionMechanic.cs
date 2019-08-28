@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using UnityEngine.UI;
-public class DeflectionMechanic : MonoBehaviour
+public class DeflectionMechanic : Player
 {
     public Collider col;
     public GameObject bullet;
@@ -40,11 +40,9 @@ public class DeflectionMechanic : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Player damages = other.GetComponentInChildren<Player>();
-
         if (bulletIn == true)
         {
-            damages.TakeDamage(damage);
+            TakeDamage(damage);
         }
 
         if (other.CompareTag("bullet"))
